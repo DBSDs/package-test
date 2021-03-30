@@ -34,7 +34,7 @@ job_build:
     paths:
       - node_modules/
     policy: pull
-  script:
+  script:6
     - npm run build;
     - echo 'ref_name:' ${CI_BUILD_REF_NAME} > dist/version
     - echo 'commit_id:' ${CI_COMMIT_SHA} >> dist/version
