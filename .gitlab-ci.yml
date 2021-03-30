@@ -8,7 +8,7 @@ variables:
 before_script:
   - VERSION=${CI_BUILD_REF_NAME:8:${#CI_BUILD_REF_NAME}}
   - PACK_FILE_PATH=/Users/ovo/Documents/dist/$VERSION
-  - VERSION_FILE_PATH=/pack/version/$VERSION
+  - VERSION_FILE_PATH=/Users/ovo/Documents/version/$VERSION
 
 job_install:
   stage: install
