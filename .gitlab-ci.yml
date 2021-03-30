@@ -1,0 +1,50 @@
+stages:
+  - install
+  - build
+
+variables:
+  npm_config_cache: '$CI_PROJECT_DIR/.npm'
+
+before_script:
+  - VERSION=${CI_BUILD_REF_NAME:8:${#CI_BUILD_REF_NAME}}
+  - PACK_FILE_PATH=/pack/dist/$VERSION
+  - VERSION_FILE_PATH=/pack/version/$VERSION
+
+job_install:
+  stage: install
+  cache:
+    paths:
+      - node_modules/
+  script:
+    - rm -f package-lock.json
+    - export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
+    - npm install --registry https://registry.npm.taobao.org;
+
+  only:
+    refs:
+      - release-3.0.0
+    changes:
+      - 'package.json'
+      - 'package-lock.json'
+      - '.gitlab-ci.yml'
+
+job_build:
+  stage: build
+  cache:
+    paths:
+      - node_modules/
+    policy: pull
+  script:
+    - npm run build;
+    - echo 'ref_name:' ${CI_BUILD_REF_NAME} > dist/version
+    - echo 'commit_id:' ${CI_COMMIT_SHA} >> dist/version
+    - echo 'project_dir:' ${CI_PROJECT_DIR} >> dist/version
+    - echo 'date:' $(date) >> dist/version
+    - rm -rf $PACK_FILE_PATH/hera
+    - rm -f $VERSION_FILE_PATH/hera
+    - mv dist hera
+    - chown -R yunqu:yunqu hera
+    - mv hera $PACK_FILE_PATH
+    - echo 'hera' ${CI_BUILD_REF_NAME} ${CI_COMMIT_SHA} > $VERSION_FILE_PATH/hera
+  only:
+    - release-3.0.0
