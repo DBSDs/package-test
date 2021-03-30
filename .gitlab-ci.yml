@@ -32,9 +32,8 @@ job_build:
     - echo 'commit_id:' ${CI_COMMIT_SHA} >> dist/version
     - echo 'project_dir:' ${CI_PROJECT_DIR} >> dist/version
     - echo 'date:' $(date) >> dist/version
-    - rm -rf $PACK_FILE_PATH/hera
-    - rm -f $VERSION_FILE_PATH/hera
-    - mv dist hera
-    - chown -R yunqu:yunqu hera
-    - mv hera $PACK_FILE_PATH
-    - echo 'hera' ${CI_BUILD_REF_NAME} ${CI_COMMIT_SHA} > $VERSION_FILE_PATH/hera
+    - rm -rf $PACK_FILE_PATH/packagetest
+    - rm -f $VERSION_FILE_PATH/packagetest
+    - mv dist packagetest
+    - mv packagetest $PACK_FILE_PATH
+    - echo 'packagetest' ${CI_BUILD_REF_NAME} ${CI_COMMIT_SHA} > $VERSION_FILE_PATH/packagetest
