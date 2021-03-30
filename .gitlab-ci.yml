@@ -20,21 +20,13 @@ job_install:
     - export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
     - npm install --registry https://registry.npm.taobao.org;
 
-  only:
-    refs:
-      - release-3.0.0
-    changes:
-      - 'package.json'
-      - 'package-lock.json'
-      - '.gitlab-ci.yml'
-
 job_build:
   stage: build
   cache:
     paths:
       - node_modules/
     policy: pull
-  script:6
+  script:
     - npm run build;
     - echo 'ref_name:' ${CI_BUILD_REF_NAME} > dist/version
     - echo 'commit_id:' ${CI_COMMIT_SHA} >> dist/version
@@ -46,5 +38,3 @@ job_build:
     - chown -R yunqu:yunqu hera
     - mv hera $PACK_FILE_PATH
     - echo 'hera' ${CI_BUILD_REF_NAME} ${CI_COMMIT_SHA} > $VERSION_FILE_PATH/hera
-  only:
-    - release-3.0.0
