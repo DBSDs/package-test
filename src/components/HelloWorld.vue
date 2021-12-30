@@ -1,17 +1,21 @@
 <template>
   <div class="hello">
-    <h1>hello world works!</h1>
-    <h2>let test package runner!!</h2>
+    <h1>Hello Vue</h1>
+    <ul>
+      <li>let test runner!!</li>
+      <li>let test web-pack!!</li>
+      <li>let test vite!!</li>
+    </ul>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
   props: {
-    msg: String
-  }
-}
+    msg: String,
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
